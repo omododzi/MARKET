@@ -11,11 +11,22 @@ public class AI : MonoBehaviour
     public bool isAtCheckout = false;
     public  bool isWaiting = false;
     public static bool gonext = false;
+    
+    public GameObject[] chairs; // Массив стульев (можно назначить в инспекторе)
+    public static bool[] isChairOccupied; // Массив для отслеживания занятости стульев
    
 
     void Start()
     {
+        chairs = GameObject.FindGameObjectsWithTag("Chair");
         rb = GetComponent<Rigidbody>();
+        isChairOccupied = new bool[chairs.Length];
+        
+        // Все стулья изначально свободны
+        for (int i = 0; i < isChairOccupied.Length; i++)
+        {
+            isChairOccupied[i] = false;
+        }
     }
     
 
@@ -100,15 +111,49 @@ public class AI : MonoBehaviour
     private IEnumerator ReactToObservation()
     {
         Debug.Log("ReactToObservation");
-        gameObject.transform.position = new Vector3(0, 0, 1000);
+        TrySitGuest();
         gonext = true;
         yield return new WaitForSecondsRealtime(delayBetweenMovements);
         gonext = false;
         spawn.score--;
-        Destroy(gameObject);
+       
     }
 
-  
-
+    public void TrySitGuest()
+    {
+        // Ищем свободный стул
+        for (int i = 0; i < isChairOccupied.Length; i++)
+        {
+            if (!isChairOccupied[i])
+            {
+                // Нашли свободный стул - сажаем гостя
+                SitGuest(i);
+                return;
+            }
+        }
+        
+        // Если все стулья заняты
+        Debug.Log("Все стулья заняты, невозможно посадить гостя");
+    }
+    private void SitGuest(int chairIndex)
+    {
+        // Помечаем стул как занятый
+        isChairOccupied[chairIndex] = true;
+        
+        // Создаем гостя и размещаем его у стула
+        
+        gameObject.transform.position = chairs[chairIndex].transform.position + Vector3.up * 0.5f;
+        
+        Debug.Log($"Гость посажен на стул {chairIndex + 1}");
+    }
+    // Метод для освобождения стула (можно вызывать, когда гость уходит)
+    public void FreeChair(int chairIndex)
+    {
+        if (isChairOccupied[chairIndex])
+        {
+            isChairOccupied[chairIndex] = false;
+            Debug.Log($"Стул {chairIndex + 1} теперь свободен");
+        }
+    }
     
 }
