@@ -6,7 +6,7 @@ public class spawn : MonoBehaviour
     public GameObject byer;
     public bool spawning = false;
     public bool reset = false;
-    private static byte score;
+    public static byte score;
     private Transform spawnPoint;
     
     void Start()
@@ -34,14 +34,14 @@ public class spawn : MonoBehaviour
     {
         reset = true;
         yield return new WaitForSeconds(10f);
-        score = 0;
+       
         reset = false;
     }
 
     IEnumerator Waiting()
     {
         spawning = true;
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(0.6f);
         Instantiate(byer, spawnPoint.position, Quaternion.identity);
         score++;
         spawning = false;

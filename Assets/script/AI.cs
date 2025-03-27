@@ -3,63 +3,112 @@ using System.Collections;
 
 public class AI : MonoBehaviour
 {
-    public float speed = 8;
-    private bool oncassa = false;
-    private bool wait = false;
+   [SerializeField] private float moveSpeed = 8f;
+    [SerializeField] private float stoppingDistance = 1f;
+    [SerializeField] private float delayBetweenMovements = 0.5f;
+
     private Rigidbody rb;
-    private Vector3 _input;
+    public bool isAtCheckout = false;
+    public  bool isWaiting = false;
+    public static bool gonext = false;
+   
+
     void Start()
     {
-        rb = GetComponent<Rigidbody>();       
+        rb = GetComponent<Rigidbody>();
     }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Cassa"))
-        {
-            Debug.Log("Cassa");
-            oncassa = true;
-        }
-        else
-        {
-            oncassa = false;
-        }
-    }
+    
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Byer");
-        if (other.CompareTag("BY")){wait = true;}
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        Debug.Log("Byer");
-        if (other.CompareTag("BY")){wait = false;}
-    }
-    void Update()
-    {
-        if (!oncassa && !wait)
+        if (other.CompareTag("BY"))
         {
-            rb.linearVelocity =  new Vector3(0,0,speed);
+            isWaiting = true;
         }
-
-        if (oncassa)
+        if (other.CompareTag("Cassa"))
         {
-            rb.linearVelocity =  new Vector3(0,0,0);
-        }
-
-        if (wait)
-        {
-            rb.linearVelocity =  new Vector3(0,0,0);
+            isAtCheckout = true;
         }
     }
     
-/*
-    IEnumerator Waiting()
+
+    private void OnTriggerExit(Collider other)
     {
-        yield return new WaitForSeconds(1f);
-        wait = false;
-        rb.linearVelocity =  new Vector3(0,0,0);
+        if (other.CompareTag("BY"))
+        {
+            isWaiting = false;
+        }
+        if (other.CompareTag("Cassa"))
+        {
+            isAtCheckout = false;
+        }
     }
-    */
+
+    void FixedUpdate()
+    {
+        
+        if (!gonext){
+            if (!isAtCheckout && !isWaiting)
+            {
+                MoveForward();
+            }
+            else if (isAtCheckout)
+            {
+                HandleCheckoutBehavior();
+            }
+            else if (isWaiting && !isAtCheckout)
+            {
+                StopMovement();
+            }
+
+            if (isAtCheckout && isWaiting)
+            {
+                HandleCheckoutBehavior();
+            }
+        }
+        else if (gonext)
+        {
+            
+            MoveForward();
+        }
+
+       
+    }
+
+    private void MoveForward()
+    {
+        rb.linearVelocity = new Vector3(0, 0, moveSpeed);
+    }
+
+    private void StopMovement()
+    {
+        rb.linearVelocity = Vector3.zero;
+    }
+
+    private void HandleCheckoutBehavior()
+    {
+        if (cassa.isObserving)
+        {
+            StartCoroutine(ReactToObservation());
+        }
+        else
+        {
+            rb.linearVelocity = new Vector3(0, 0, moveSpeed * 0.1f);
+        }
+    }
+
+    private IEnumerator ReactToObservation()
+    {
+        Debug.Log("ReactToObservation");
+        gameObject.transform.position = new Vector3(0, 0, 1000);
+        gonext = true;
+        yield return new WaitForSecondsRealtime(delayBetweenMovements);
+        gonext = false;
+        spawn.score--;
+        Destroy(gameObject);
+    }
+
+  
+
+    
 }

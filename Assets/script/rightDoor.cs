@@ -7,9 +7,11 @@ public class rightDoor : MonoBehaviour
         private Transform _door;
         private Vector3 _initialPosition;
         public float openDistance = 2f;
+        private TrigDoor _trigDoor;
     
         void Start()
         {
+            _trigDoor = new TrigDoor();
             _door = GetComponent<Transform>();
             _initialPosition = transform.position;
         }
@@ -27,7 +29,7 @@ public class rightDoor : MonoBehaviour
         // Update is called once per frame
         void Update()
         {
-            if (_openDoor)
+            if (TrigDoor.isOpen)
             {
                 // Открываем дверь влево (уменьшаем координату X)
                 float newX = Mathf.MoveTowards(transform.position.x, 
@@ -35,7 +37,7 @@ public class rightDoor : MonoBehaviour
                     speedOpen * Time.deltaTime);
                 transform.position = new Vector3(newX, _initialPosition.y, _initialPosition.z);
             }
-            else
+            else if (!TrigDoor.isOpen)
             {
                 // Закрываем дверь (возвращаем в исходное положение)
                 float newX = Mathf.MoveTowards(transform.position.x, 
@@ -44,6 +46,6 @@ public class rightDoor : MonoBehaviour
                 transform.position = new Vector3(newX, _initialPosition.y, _initialPosition.z);
             }
         } 
-    
+       
         }
 

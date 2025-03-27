@@ -7,13 +7,16 @@ public class leftDoor : MonoBehaviour
     private Transform _door;
     private Vector3 _initialPosition;
     public float openDistance = 2f; // Расстояние, на которое дверь открывается
+    private TrigDoor _trigDoor;
 
     void Start()
     {
+        _trigDoor = new TrigDoor();
         _door = transform;
         _initialPosition = transform.position;
     }
 
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") || other.CompareTag("BY"))
@@ -29,10 +32,10 @@ public class leftDoor : MonoBehaviour
             _openDoor = false;
         }
     }
-
+*/
     void Update()
     {
-        if (_openDoor)
+        if (TrigDoor.isOpen)
         {
             // Открываем дверь влево (уменьшаем координату X)
             float newX = Mathf.MoveTowards(transform.position.x, 
@@ -40,7 +43,7 @@ public class leftDoor : MonoBehaviour
                 speedOpen * Time.deltaTime);
             transform.position = new Vector3(newX, _initialPosition.y, _initialPosition.z);
         }
-        else
+        else if (!TrigDoor.isOpen)
         {
             // Закрываем дверь (возвращаем в исходное положение)
             float newX = Mathf.MoveTowards(transform.position.x, 
