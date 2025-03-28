@@ -183,8 +183,4 @@ public class AI : MonoBehaviour
             isSitting = false;
         }
     }
-
-
-    
-
 }
