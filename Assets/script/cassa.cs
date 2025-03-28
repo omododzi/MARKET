@@ -10,7 +10,6 @@ public class cassa : MonoBehaviour
    {
       if (other.CompareTag("Cassa") && Input.GetKeyDown(KeyCode.R))
       {
-         Debug.Log(" пизда тоби");
          isObserving = true;
          StartCoroutine(Cooldown());
       }
