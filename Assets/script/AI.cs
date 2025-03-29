@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.AI;
 
 public class AI : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class AI : MonoBehaviour
     [SerializeField] private float delayBetweenMovements = 0.5f;
 
     private Rigidbody rb;
+    private NavMeshAgent agent;
     public bool isAtCheckout = false;
     public bool isWaiting = false;
     public static bool gonext = false;
@@ -18,10 +20,14 @@ public class AI : MonoBehaviour
 
     public GameObject[] chairs; // Массив стульев (можно назначить в инспекторе)
     public static bool[] isChairOccupied; // Массив для отслеживания занятости стульев
+    private Transform target;
 
     private int currentChairIndex = -1;
     void Start()
     {
+        target = GameObject.FindGameObjectWithTag("GameController").transform;
+        agent = GetComponent<NavMeshAgent>();
+        agent.speed = moveSpeed;
         chairs = GameObject.FindGameObjectsWithTag("Chair");
     
         // Инициализируем массив занятости (если он static)
@@ -43,6 +49,20 @@ public class AI : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("BY"))
+        {
+            isWaiting = true;
+        }
+        if (other.CompareTag("Cassa"))
+        {
+            isAtCheckout = true;
+        }
+        if (other.CompareTag("Chair"))
+        {
+            StopMovement();
+        }
+    }private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("BY"))
         {
@@ -101,12 +121,15 @@ public class AI : MonoBehaviour
 
     private void MoveForward()
     {
-        rb.linearVelocity = new Vector3(0, 0, moveSpeed);
+        //rb.linearVelocity = new Vector3(0, 0, moveSpeed);
+        agent.speed = moveSpeed;
+        agent.SetDestination(target.position);
     }
 
     private void StopMovement()
     {
-        rb.linearVelocity = Vector3.zero;
+        //rb.linearVelocity = Vector3.zero;
+        agent.SetDestination(agent.transform.position);
     }
 
     private void HandleCheckoutBehavior()
@@ -117,7 +140,9 @@ public class AI : MonoBehaviour
         }
         else
         {
-            rb.linearVelocity = new Vector3(0, 0, moveSpeed * 0.1f);
+            //rb.linearVelocity = new Vector3(0, 0, moveSpeed * 0.1f);
+            agent.speed = moveSpeed;
+            agent.SetDestination(target.position);
         }
     }
     
@@ -167,7 +192,9 @@ public class AI : MonoBehaviour
         
         while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            //transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            agent.speed = moveSpeed;
+            agent.SetDestination(chair.transform.position);
             yield return null;
         }
         

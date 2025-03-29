@@ -41,7 +41,7 @@ public class spawn : MonoBehaviour
     IEnumerator Waiting()
     {
         spawning = true;
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(1.5f);
         Instantiate(byer, spawnPoint.position, Quaternion.identity);
         score++;
         spawning = false;

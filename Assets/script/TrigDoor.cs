@@ -9,6 +9,7 @@ public class TrigDoor : MonoBehaviour
         if (other.CompareTag("BY"))
         {
             isOpen = true;
+           
         }
     }
 
