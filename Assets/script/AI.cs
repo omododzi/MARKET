@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 using UnityEngine.AI;
 
 public class AI : MonoBehaviour
@@ -9,14 +10,18 @@ public class AI : MonoBehaviour
     [SerializeField] private float stoppingDistance = 1f;
     [SerializeField] private float delayBetweenMovements = 0.5f;
 
-    private Rigidbody rb;
+    //private Rigidbody rb;
     private NavMeshAgent agent;
+    private Animator animator;
     public bool isAtCheckout = false;
     public bool isWaiting = false;
     public static bool gonext = false;
     private bool isSitting = false;
     private bool isSearchingChair = false;
     private bool isAttemptingToSit = false;
+    private bool pox = false;
+    public static bool someoncassant = false;
+    public static string order ;
 
     public GameObject[] chairs; // Массив стульев (можно назначить в инспекторе)
     public static bool[] isChairOccupied; // Массив для отслеживания занятости стульев
@@ -25,6 +30,7 @@ public class AI : MonoBehaviour
     private int currentChairIndex = -1;
     void Start()
     {
+        animator = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag("GameController").transform;
         agent = GetComponent<NavMeshAgent>();
         agent.speed = moveSpeed;
@@ -39,13 +45,9 @@ public class AI : MonoBehaviour
                 isChairOccupied[i] = false;
             }
         }
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
+        MoveForward();
 
-        // Все стулья изначально свободны
-        for (int i = 0; i < isChairOccupied.Length; i++)
-        {
-            isChairOccupied[i] = false;
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -57,6 +59,7 @@ public class AI : MonoBehaviour
         if (other.CompareTag("Cassa"))
         {
             isAtCheckout = true;
+            someoncassant = true;
         }
         if (other.CompareTag("Chair"))
         {
@@ -86,15 +89,25 @@ public class AI : MonoBehaviour
         }
         if (other.CompareTag("Cassa"))
         {
+            someoncassant = false;
             isAtCheckout = false;
         }
     }
 
     void FixedUpdate()
     {
-        if (!gonext && !isSitting)
+        if (agent.remainingDistance <= agent.stoppingDistance)
         {
-            if (!isAtCheckout && !isWaiting)
+            animator.SetBool("ismoving", false);
+        }
+        else
+        {
+            animator.SetBool("ismoving", true);
+        }
+        //Debug.Log(someoncassant);
+        if (!gonext && !isSitting && !pox)
+        {
+            if (!isAtCheckout && !isWaiting && !someoncassant)
             {
                 MoveForward();
             }
@@ -106,16 +119,26 @@ public class AI : MonoBehaviour
             {
                 StopMovement();
             }
+            if (!someoncassant)
+            {
+                MoveForward();
+            }else if (someoncassant &&isWaiting )
+            {
+                StopMovement();
+            }
+            
 
             if (isAtCheckout && isWaiting)
             {
                 HandleCheckoutBehavior();
             }
         }
-        else if (gonext && !isSitting)
+        else if (gonext && !isSitting && !pox)
         {
             MoveForward();
         }
+
+        
         
     }
 
@@ -137,6 +160,8 @@ public class AI : MonoBehaviour
         if (cassa.isObserving)
         {
             StartCoroutine(ReactToObservation());
+            order = ControleCreateFood.menu[Random.Range(0, ControleCreateFood.menu.Length)];
+            Debug.Log( order);
         }
         else
         {
@@ -152,7 +177,6 @@ public class AI : MonoBehaviour
         gonext = true;
         yield return new WaitForSecondsRealtime(delayBetweenMovements);
         gonext = false;
-        spawn.score--;
     }
 
     public void TrySitGuest()
@@ -193,9 +217,11 @@ public class AI : MonoBehaviour
         while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
         {
             //transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            pox = true;
             agent.speed = moveSpeed;
             agent.SetDestination(chair.transform.position);
             yield return null;
+           
         }
         
         Debug.Log($"{name} успешно сел на стул {chairIndex}");

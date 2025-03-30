@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,9 +7,25 @@ public class cassa : MonoBehaviour
    private bool canObserve = true;
    public static bool isObserving = false;
 
-   private void OnTriggerStay(Collider other)
+   private void OnTriggerEnter(Collider other)
    {
-      if (other.CompareTag("Cassa") && Input.GetKeyDown(KeyCode.R))
+      if (other.CompareTag("Cassa") )
+      {
+         canObserve = true;
+         
+      }
+   }private void OnTriggerExit(Collider other)
+   {
+      if (other.CompareTag("Cassa") )
+      {
+         canObserve = false;
+         
+      }
+   }
+
+   private void FixedUpdate()
+   {
+      if (canObserve && Input.GetKeyDown(KeyCode.E))
       {
          isObserving = true;
          StartCoroutine(Cooldown());
@@ -17,9 +34,7 @@ public class cassa : MonoBehaviour
 
    IEnumerator Cooldown()
    {
-      canObserve = false;
-      yield return new WaitForSeconds(0.3f);
+      yield return new WaitForSeconds(0.5f);
       isObserving = false;
-      canObserve = true;
    }
 }

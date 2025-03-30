@@ -8,6 +8,14 @@ TagManager:
   - BY
   - Cassa
   - Chair
+  - laver
+  - pod
+  - Burger
+  - Hotdog
+  - Pizza
+  - Roll
+  - pasta
+  - Button
   layers:
   - Default
   - TransparentFX

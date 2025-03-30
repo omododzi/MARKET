@@ -1,12 +1,14 @@
 using UnityEngine;
-
 public class Move : MonoBehaviour
 {
     private Rigidbody rb;
     public float moveSpeed = 5f; // Изменил byte на float для более точного контроля скорости
+    private Animator animator;
+    
     
     void Start()
     {
+        animator = GetComponent<Animator>();    
         rb = GetComponent<Rigidbody>();
         if (rb == null)
         {
@@ -33,6 +35,8 @@ public class Move : MonoBehaviour
         
         // Сохраняем ввод в вектор
         movementInput = new Vector3(horizontal, 0f, vertical).normalized;
+        
+        
     }
 
     private void MoveCharacter()
@@ -45,17 +49,20 @@ public class Move : MonoBehaviour
             // Применяем движение через физику (сохраняем текущую Y-скорость)
             moveVelocity.y = rb.linearVelocity.y;
             rb.linearVelocity = moveVelocity;
+            animator.SetBool("ismoving",true);
             
             // Поворачиваем персонажа в направлении движения
             if (moveVelocity != Vector3.zero)
             {
                 transform.rotation = Quaternion.LookRotation(moveVelocity);
+               
             }
         }
         else
         {
             // Если ввода нет, останавливаем горизонтальное движение (но сохраняем вертикальное, например, для гравитации)
             rb.linearVelocity = new Vector3(0f, rb.linearVelocity.y, 0f);
+            animator.SetBool("ismoving",false);
         }
     }
     
