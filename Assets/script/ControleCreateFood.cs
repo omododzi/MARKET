@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class ControleCreateFood : MonoBehaviour
 {
@@ -10,12 +11,14 @@ public class ControleCreateFood : MonoBehaviour
     //private Transform donats;  public GameObject donatsDonats;
     //private Transform wafli;   public  GameObject wafliWafli;
     public static string[] menu = new string[] {"Burger", "Hotdog", "Pizza", "Roll", "Pasta", "Donuts"};
+    
+    private bool canspawn = true;
     void Start()
     {
         burger = GameObject.FindGameObjectWithTag("Burger").GetComponent<Transform>();
         //wafli = GameObject.FindGameObjectWithTag("Wafli").GetComponent<Transform>();
         //donats = GameObject.FindGameObjectWithTag("Donats").GetComponent<Transform>();
-        pasta = GameObject.FindGameObjectWithTag("pasta").GetComponent<Transform>();
+        pasta = GameObject.FindGameObjectWithTag("Pasta").GetComponent<Transform>();
         roll = GameObject.FindGameObjectWithTag("Roll").GetComponent<Transform>();
         pizza = GameObject.FindGameObjectWithTag("Pizza").GetComponent<Transform>();
         hotdog = GameObject.FindGameObjectWithTag("Hotdog").GetComponent<Transform>();
@@ -75,33 +78,32 @@ public class ControleCreateFood : MonoBehaviour
                 Debug.Log("начало проверки");
                 // Заказ найден в меню, можно выполнять обработку
                 Debug.Log($"Заказ {currentOrder} найден в меню");
-                if (currentOrder == "Burger")
+                if (currentOrder == "Burger" && canspawn)
                 {
-                    Debug.Log("спавню");
                     Instantiate(burgerBurger, burger.position, Quaternion.identity);
-                }else if (currentOrder == "Hotdog")
+                    StartCoroutine(Cooldown());
+                }else if (currentOrder == "Hotdog"&& canspawn)
                 {
-                    Debug.Log("спавню");
                     Instantiate(hotdogHotdog, hotdog.position, Quaternion.identity);
-                }else if (currentOrder == "Pizza")
+                    StartCoroutine(Cooldown());
+                }else if (currentOrder == "Pizza"&& canspawn)
                 {
-                    Debug.Log("спавню");
-                    Instantiate(pizzaPizza, pizza.position, Quaternion.identity);
-                }else if (currentOrder == "Roll")
+                    Instantiate(pizzaPizza, pizza.position, Quaternion.identity);StartCoroutine(Cooldown());
+                }else if (currentOrder == "Roll"&& canspawn)
                 {
-                    Debug.Log("спавню");
-                    Instantiate(rollRoll, roll.position, Quaternion.identity);
-                }else if (currentOrder == "Pasta")
+                  
+                    Instantiate(rollRoll, roll.position, Quaternion.identity);StartCoroutine(Cooldown());
+                }else if (currentOrder == "Pasta"&& canspawn)
                 {
-                    Debug.Log("спавню");
+                
                     Instantiate(pastaPasta, pasta.position, Quaternion.identity);
-                }else if (currentOrder == "Donuts")
+                }else if (currentOrder == "Donuts"&& canspawn)
                 {
-                    //Instantiate(donatsDonats, donats.position, Quaternion.identity);
+                    //Instantiate(donatsDonats, donats.position, Quaternion.identity);StartCoroutine(Cooldown());
                 }
-                else
+                else if (currentOrder == "Wafli"&& canspawn)
                 {
-                   //Instantiate(wafliWafli, wafli.position, Quaternion.identity);
+                   //Instantiate(wafliWafli, wafli.position, Quaternion.identity);StartCoroutine(Cooldown());
                 }
             }
             else
@@ -112,5 +114,12 @@ public class ControleCreateFood : MonoBehaviour
             // Сбрасываем флаг приготовления
             AIhelper.coocked = false;
         }
+    }
+
+    IEnumerator Cooldown()
+    {
+        canspawn = false;
+        yield return new WaitForSeconds(1f);
+        canspawn = true;
     }
 }

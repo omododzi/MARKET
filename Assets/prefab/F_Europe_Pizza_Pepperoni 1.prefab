@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5177937742697835031}
   m_Layer: 0
   m_Name: F_Europe_Pizza_Pepperoni 1
-  m_TagString: Untagged
+  m_TagString: Pizza
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

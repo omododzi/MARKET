@@ -16,6 +16,9 @@ TagManager:
   - Roll
   - pasta
   - Button
+  - Wafli
+  - Donuts
+  - Pasta
   layers:
   - Default
   - TransparentFX

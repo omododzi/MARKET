@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 1083613405187181095}
   m_Layer: 0
   m_Name: F_Europe_Hotdog_Hotdog_Classic 1
-  m_TagString: Untagged
+  m_TagString: Hotdog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
