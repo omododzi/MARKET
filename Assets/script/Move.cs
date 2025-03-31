@@ -34,7 +34,7 @@ public class Move : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         
         // Сохраняем ввод в вектор
-        movementInput = new Vector3(horizontal, 0f, vertical).normalized;
+        movementInput = new Vector3(-horizontal, 0f, -vertical).normalized;
         
         
     }

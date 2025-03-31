@@ -23,7 +23,7 @@ public class AIhelper : MonoBehaviour
     private void Update()
     {
         
-        if (cancoock && AI.order !=null &&cassa.isObserving)
+        if (cancoock && ControllerOrder.order !=null &&cassa.isObserving)
         {
             StartCoroutine(Coock());
         }

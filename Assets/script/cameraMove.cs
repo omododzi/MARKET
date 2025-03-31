@@ -4,7 +4,11 @@ public class cameraMove : MonoBehaviour
 {
     private Transform target;
     private Transform cam;
-    public float zum;
+    public float zumY;
+    public float zumZ;
+    public float zumX;
+    public float rotateX;
+    public float rotateY;
     void Start()
     {
         target = GameObject.FindWithTag("Player").transform;
@@ -13,6 +17,7 @@ public class cameraMove : MonoBehaviour
 
     void Update()
     {
-        cam.transform.position = new Vector3(target.position.x, target.position.y - zum, target.position.z);
+        cam.transform.position = new Vector3(target.position.x - zumX, target.position.y - zumY, target.position.z - zumZ);
+        cam.transform.rotation = Quaternion.Euler(rotateX, rotateY, 0);
     }
 }

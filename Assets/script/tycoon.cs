@@ -34,11 +34,11 @@ public class tycoon : MonoBehaviour
     {
         if (other.CompareTag("Burger"))
         {
-            Debug.Log("нормик");
+       
             canburger = true;
         }else if (other.CompareTag("Hotdog"))
         {
-            Debug.Log("нормик");
+
             canhotdog = true;
         }else if (other.CompareTag("Pizza"))
         {
@@ -46,18 +46,18 @@ public class tycoon : MonoBehaviour
             canpizza = true;
         }else if (other.CompareTag("Roll"))
         {
-            Debug.Log("нормик");
+           
             canroll = true;
         }else if (other.CompareTag("Pasta"))
-        {Debug.Log("нормик");
+        {
             canpasta = true;
         }else if (other.CompareTag("Donuts"))
         {
-            Debug.Log("нормик");
+            
             //candonats = true;
         }else if (other.CompareTag("Wafli"))
         {
-            Debug.Log("нормик");
+            
             //canwafli = true;
         }
     }private void OnTriggerExit(Collider other)
@@ -98,7 +98,7 @@ public class tycoon : MonoBehaviour
             StartCoroutine(Cooldown());
         }else if (canpizza && Input.GetKeyDown(KeyCode.E))
         {
-            Instantiate(pizza, pizza.position, Quaternion.identity);
+            Instantiate(pizzaPizza, pizza.position, Quaternion.identity);
             StartCoroutine(Cooldown());
         }else if (canroll && Input.GetKeyDown(KeyCode.E))
         {
@@ -118,6 +118,7 @@ public class tycoon : MonoBehaviour
     }
     IEnumerator Cooldown()
     {
+        Score.summ -= 20;
         canspawn = false;
         yield return new WaitForSeconds(1f);
         canspawn = true;

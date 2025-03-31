@@ -21,7 +21,9 @@ public class AI : MonoBehaviour
     private bool isAttemptingToSit = false;
     private bool pox = false;
     public static bool someoncassant = false;
-    public static string order ;
+    public  string makeOrder;
+
+    public static byte count; 
 
     public GameObject[] chairs; // Массив стульев (можно назначить в инспекторе)
     public static bool[] isChairOccupied; // Массив для отслеживания занятости стульев
@@ -30,6 +32,7 @@ public class AI : MonoBehaviour
     private int currentChairIndex = -1;
     void Start()
     {
+       
         animator = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag("GameController").transform;
         agent = GetComponent<NavMeshAgent>();
@@ -64,6 +67,15 @@ public class AI : MonoBehaviour
         if (other.CompareTag("Chair"))
         {
             StopMovement();
+        }
+
+        if (other.CompareTag("Burger") || other.CompareTag("Pasta") || other.CompareTag("Pizza") ||
+            other.CompareTag("Hotdog") || other.CompareTag("Roll"))
+        {
+            Debug.Log(other.name);
+            GameObject food = other.gameObject;
+            Destroy(food);
+            StartCoroutine(Exit());
         }
     }private void OnTriggerStay(Collider other)
     {
@@ -138,6 +150,10 @@ public class AI : MonoBehaviour
             MoveForward();
         }
 
+        if (!isAtCheckout && !isWaiting && !someoncassant && pox)
+        {
+            
+        }
         
         
     }
@@ -160,8 +176,7 @@ public class AI : MonoBehaviour
         if (cassa.isObserving)
         {
             StartCoroutine(ReactToObservation());
-            order = ControleCreateFood.menu[Random.Range(0, ControleCreateFood.menu.Length)];
-            Debug.Log( order);
+            
         }
         else
         {
@@ -197,6 +212,7 @@ public class AI : MonoBehaviour
             currentChairIndex = chairIndex;
             yield return StartCoroutine(MoveToChair(chairIndex));
             isSitting = true;
+            Score.summ += 20;
         }
         else
         {
@@ -210,6 +226,19 @@ public class AI : MonoBehaviour
 
     private IEnumerator MoveToChair(int chairIndex)
     {
+        if (count >= 0 && count < ControllerOrder.order.Length)
+        {
+            ControllerOrder.order[count] = makeOrder;
+            count++;
+        }
+        else
+        {
+            Debug.LogError($"Индекс {count} выходит за границы массива заказов!");
+        }
+        makeOrder = ControleCreateFood.menu[Random.Range(0, ControleCreateFood.menu.Length)];
+        ControllerOrder.order[count] = makeOrder;
+        count++;
+        
         isSitting = true;
         GameObject chair = freeCheir.Instance.chairs[chairIndex];
         Vector3 targetPosition = chair.transform.position + Vector3.up * 0.5f;
@@ -223,17 +252,22 @@ public class AI : MonoBehaviour
             yield return null;
            
         }
-        
-        Debug.Log($"{name} успешно сел на стул {chairIndex}");
     }
 
     public void LeaveChair()
     {
+        Debug.Log("gameObject");
         if (currentChairIndex != -1)
         {
             freeCheir.Instance.FreeChair(currentChairIndex);
             currentChairIndex = -1;
             isSitting = false;
         }
+    }
+
+    IEnumerator Exit()
+    {
+        yield return new WaitForSeconds(0.5f);
+        LeaveChair();
     }
 }
