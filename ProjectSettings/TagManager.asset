@@ -20,6 +20,8 @@ TagManager:
   - Donuts
   - Pasta
   - Dock
+  - Out
+  - ordetarg
   layers:
   - Default
   - TransparentFX

@@ -19,7 +19,7 @@ public class ControleCreateFood : MonoBehaviour
 
     //private Transform donats;  public GameObject donatsDonats;
     //private Transform wafli;   public  GameObject wafliWafli;
-    public static string[] menu = new string[] { "Burger", "Hotdog", "Pizza", "Roll", "Pasta", "Donuts" };
+    public static string[] menu = new string[] { "Burger", "Hotdog", "Pizza", "Roll", "Pasta" };
 
     private bool canspawn = true;
 

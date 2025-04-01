@@ -4,7 +4,7 @@ using System.Collections;
 public class AIhelper : MonoBehaviour
 {
     private bool cancoock = false;
-    public static bool coocked = true;
+    public static bool coocked = false;
     
     private void OnTriggerEnter(Collider other)
     {

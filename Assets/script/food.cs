@@ -3,7 +3,7 @@ using UnityEngine;
 public class food : MonoBehaviour
 {
     private Rigidbody rb;
-    private bool onconveer;
+    [SerializeField] public bool onconveer;
     private bool onpodnos;
     public byte movespeed = 3;
 
@@ -32,6 +32,7 @@ public class food : MonoBehaviour
     }
     void Update()
     {
+        
         if (onconveer)
         {
             rb.linearVelocity = new Vector3(movespeed, 0,0 );

@@ -6,7 +6,7 @@ using System.Collections;
 public class podnoscontroller : MonoBehaviour
 {
     public Transform playerHand; // Место, куда поднос прикрепится (например, child-объект камеры)
-    public List<GameObject> dishesOnTray = new List<GameObject>(); // Список блюд на подносе
+    public static List<GameObject> dishesOnTray = new List<GameObject>(); // Список блюд на подносе
     public int maxDishes = 3; // Максимум блюд на подносе.
     public Transform dock;
 
@@ -22,23 +22,29 @@ public class podnoscontroller : MonoBehaviour
         if (other.CompareTag("Burger"))
         {
             GameObject burgerBurger = other.gameObject;
+            
             AddDish(burgerBurger);
+            StartCoroutine(Cooldown());
         }else if (other.CompareTag("Hotdog"))
         {
             GameObject hotdogHotdog = other.gameObject;
             AddDish(hotdogHotdog);
+            StartCoroutine(Cooldown());
         }else if (other.CompareTag("Pizza"))
         {
             GameObject pizzaPizza = other.gameObject;
             AddDish(pizzaPizza);
+            StartCoroutine(Cooldown());
         }else if (other.CompareTag("Roll"))
         {
             GameObject rollRoll = other.gameObject;
             AddDish(rollRoll);
+            StartCoroutine(Cooldown());
         }else if (other.CompareTag("Pasta"))
         {
             GameObject pastaPasta = other.gameObject;
             AddDish(pastaPasta);
+            StartCoroutine(Cooldown());
         }else if (other.CompareTag("Donuts"))
         {
             //GameObject hotdogHotdog = other.gameObject;
@@ -57,8 +63,8 @@ public class podnoscontroller : MonoBehaviour
 
     private void Update()
     {
-       
-        if (Input.GetKeyDown(KeyCode.E) && !isHeld)
+       Debug.Log(dishesOnTray.Count);
+        if (Input.GetKeyDown(KeyCode.R) && !isHeld)
         {
             // Проверяем, что игрок достаточно близко к подносу (можно через триггер)
             float distance = Vector3.Distance(transform.position, playerHand.position);
@@ -117,7 +123,6 @@ public class podnoscontroller : MonoBehaviour
         if (Canadddish){
             dish.transform.position = new Vector3(playerHand.position.x, playerHand.position.y + tower, playerHand.position.z);
             tower += tower;
-            StartCoroutine(Cooldown());
         }
         return true;
     }
@@ -129,7 +134,7 @@ public class podnoscontroller : MonoBehaviour
         Canadddish = true;
     }
 
-    public void RemoveDish(GameObject dish)
+    public static void RemoveDish(GameObject dish)
     {
         if (dishesOnTray.Contains(dish))
         {
