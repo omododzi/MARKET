@@ -3,12 +3,12 @@ using TMPro;
 
 public class Score : MonoBehaviour
 {
-    public static int summ =1000;
+    public static int summ =100;
     public TMP_Text tmpText;
 
     void Start()
     {
-        summ = 1000;
+        summ = 100;
     }
 
     void FixedUpdate()
