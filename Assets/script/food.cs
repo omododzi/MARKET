@@ -32,8 +32,11 @@ public class food : MonoBehaviour
     }
     void Update()
     {
-        
-        if (onconveer)
+        if (gameObject.CompareTag("Burger") && onconveer)
+        { 
+            rb.linearVelocity = new Vector3(0, 0,movespeed );
+        }
+        if (onconveer && !gameObject.CompareTag("Burger"))
         {
             rb.linearVelocity = new Vector3(movespeed, 0,0 );
         }else if (onpodnos)

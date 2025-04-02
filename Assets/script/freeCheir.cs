@@ -46,7 +46,7 @@ public class freeCheir : MonoBehaviour
                 {
                     isChairOccupied[i] = true;
                     chairIndex = i;
-                    Debug.Log($"{guest.name} занял стул {i}. Состояние: {GetChairStatusString()}");
+                    
                     return true;
                 }
             }
@@ -58,17 +58,9 @@ public class freeCheir : MonoBehaviour
         if (index >= 0 && index < isChairOccupied.Length)
         {
             isChairOccupied[index] = false;
-            Debug.Log($"Освобожден стул {index}. Состояние: {GetChairStatusString()}");
+           
         }
     }
 
-    public string GetChairStatusString()
-    {
-        string status = "";
-        for (int i = 0; i < isChairOccupied.Length; i++)
-        {
-            status += isChairOccupied[i] ? "[X] " : $"[{i}] ";
-        }
-        return status;
-    }
+   
 }

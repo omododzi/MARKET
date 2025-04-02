@@ -6,23 +6,26 @@ public class spawn : MonoBehaviour
     public GameObject byer;
     public bool spawning = false;
     public bool reset = false;
-    public static byte score;
+    public byte score;
     private Transform spawnPoint;
+    public int spawnwave;
+    
     
     void Start()
     {
         spawnPoint = GameObject.FindGameObjectWithTag("SpawnPoint").transform;
+        spawnwave = Random.Range(0, 1);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (score < 10 && !spawning)
+        if (score < spawnwave && !spawning)
         {
             StartCoroutine(Waiting());
         }
 
-        if (score >= 10 && !reset)
+        if (score >= spawnwave && !reset && AI.score==0)
         {
             StartCoroutine(Reset());
             
@@ -33,15 +36,15 @@ public class spawn : MonoBehaviour
     IEnumerator Reset()
     {
         reset = true;
-        yield return new WaitForSeconds(10f);
-       
+        yield return new WaitForSeconds(5f);
+        spawnwave = Random.Range(0, 15);
         reset = false;
     }
 
     IEnumerator Waiting()
     {
         spawning = true;
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2f);
         Instantiate(byer, spawnPoint.position, Quaternion.identity);
         score++;
         spawning = false;

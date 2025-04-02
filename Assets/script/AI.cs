@@ -28,6 +28,7 @@ public class AI : MonoBehaviour
     private bool pox = false;
     public static bool someoncassant = false;
     private bool leave = false;
+    private bool caneat = true;
     
     public string makeOrder;
 
@@ -42,10 +43,11 @@ public class AI : MonoBehaviour
     public static string[] menu = new string[] { "Burger", "Hotdog", "Pizza", "Roll", "Pasta" };
     
     private int currentChairIndex = -1;
+    public static int score;
     void Start()
     {
-        
-        
+
+        score++;
         animator = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag("GameController").transform;
         targOut = GameObject.FindGameObjectWithTag("Out").transform;
@@ -69,33 +71,33 @@ public class AI : MonoBehaviour
         if (makeOrder == "Burger")
         {
             GameObject burg =Instantiate(burgerBurger,targorder.position, Quaternion.identity);
+            burg.transform.SetParent(targorder);
             burg.GetComponent<Collider>().enabled = false;
             burg.GetComponent<Rigidbody>().useGravity = false;
-            burg.transform.SetParent(targorder);
         }else if (makeOrder == "Hotdog")
         {
             GameObject hotdg =Instantiate(hotdogHotdog, targorder.position, Quaternion.identity);
+            hotdg.transform.SetParent(targorder);
             hotdg.GetComponent<Collider>().enabled = false;
             hotdg.GetComponent<Rigidbody>().useGravity = false;
-            hotdg.transform.SetParent(targorder);
         }else if (makeOrder == "Pizza")
         {
             GameObject pizz =Instantiate(pizzaPizza, targorder.position, Quaternion.identity);
+            pizz.transform.SetParent(targorder);
             pizz.GetComponent<Collider>().enabled = false;
             pizz.GetComponent<Rigidbody>().useGravity = false;
-            pizz.transform.SetParent(targorder);
         }else if (makeOrder == "Roll")
         {
             GameObject roll =Instantiate(rollRoll, targorder.position, Quaternion.identity);
+            roll.transform.SetParent(targorder);
             roll.GetComponent<Collider>().enabled = false;
             roll.GetComponent<Rigidbody>().useGravity = false;
-            roll.transform.SetParent(targorder);
         }else if (makeOrder == "Pasta")
         {
             GameObject pasta =Instantiate(pastaPasta, targorder.position, Quaternion.identity);
+            pasta.transform.SetParent(targorder);
             pasta.GetComponent<Collider>().enabled = false;
             pasta.GetComponent<Rigidbody>().useGravity = false;
-            pasta.transform.SetParent(targorder);
         }
     }
 
@@ -122,7 +124,7 @@ public class AI : MonoBehaviour
             
         }
 
-        if (other.CompareTag("pod"))
+        if (other.CompareTag("pod") && isSitting)
         {
             for (int i = podnoscontroller.dishesOnTray.Count - 1; i >= 0; i--)
             {
@@ -130,7 +132,12 @@ public class AI : MonoBehaviour
                 if (currentOrder.CompareTag(makeOrder))
                 {
                     StartCoroutine(Exit());
-                    podnoscontroller.RemoveDish(currentOrder);
+                    if (caneat)
+                    {
+                        podnoscontroller.RemoveDish(currentOrder);
+                        caneat = false;
+                    }
+                    
                 }
                 
                 
@@ -276,7 +283,7 @@ public class AI : MonoBehaviour
         }
         else
         {
-            Debug.Log($"{name} не нашёл свободных стульев. Ожидание...");
+           
             yield return new WaitForSeconds(1f);
             StartCoroutine(TrySitGuestCoroutine());
         }
@@ -308,6 +315,7 @@ public class AI : MonoBehaviour
             Score.summ += 20;
             freeCheir.Instance.FreeChair(currentChairIndex);
             currentChairIndex = -1;
+            score--;
             isSitting = false;
             gameObject.tag = "Untagged";
             leave = true;

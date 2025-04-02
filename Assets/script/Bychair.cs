@@ -1,9 +1,11 @@
 using UnityEngine;
+using System.Collections;
 
 public class Bychair : MonoBehaviour
 {
     public GameObject[] ofchair;
     private byte lockchair;
+    private bool canby = true;
     void Start()
     {
         //ofchair = GameObject.FindGameObjectsWithTag("Ofchair");
@@ -15,17 +17,21 @@ public class Bychair : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             if (ofchair[lockchair] != null){
-                if (Score.summ >= 10 && lockchair <= ofchair.Length)
+                if (Score.summ >= 300 && lockchair <= ofchair.Length && canby)
                 {
                     ofchair[lockchair].SetActive(true);
                     lockchair++;
-                    Score.summ -= 10;
-                }
-                else
-                {
-                    Debug.Log("неполучилось");
+                    Score.summ -= 300;
+                    StartCoroutine(Cooldown()); 
                 }
             }
         }
+    }
+
+    IEnumerator Cooldown()
+    {
+        canby = false;
+        yield return new WaitForSeconds(1);
+        canby = true;
     }
 }

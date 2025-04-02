@@ -10,7 +10,7 @@ public class podnoscontroller : MonoBehaviour
     public int maxDishes = 3; // Максимум блюд на подносе.
     public Transform dock;
 
-    private float tower = 0.5f;
+    private static float tower = 0.5f;
     
 
     private bool isHeld = false;
@@ -22,7 +22,6 @@ public class podnoscontroller : MonoBehaviour
         if (other.CompareTag("Burger"))
         {
             GameObject burgerBurger = other.gameObject;
-            
             AddDish(burgerBurger);
             StartCoroutine(Cooldown());
         }else if (other.CompareTag("Hotdog"))
@@ -63,8 +62,7 @@ public class podnoscontroller : MonoBehaviour
 
     private void Update()
     {
-       Debug.Log(dishesOnTray.Count);
-        if (Input.GetKeyDown(KeyCode.R) && !isHeld)
+        if (Input.GetKeyDown(KeyCode.F) && !isHeld)
         {
             // Проверяем, что игрок достаточно близко к подносу (можно через триггер)
             float distance = Vector3.Distance(transform.position, playerHand.position);
@@ -74,7 +72,7 @@ public class podnoscontroller : MonoBehaviour
             }
         }
 
-        if (Candrop && Input.GetKeyDown(KeyCode.E))
+        if (Candrop && Input.GetKeyDown(KeyCode.F))
         {
             AddtoDock();
         }
@@ -138,6 +136,9 @@ public class podnoscontroller : MonoBehaviour
     {
         if (dishesOnTray.Contains(dish))
         {
+            if (tower != 0f){
+                tower -= 0.5f;
+            }
             dishesOnTray.Remove(dish);
             Destroy(dish);
         }
