@@ -28,7 +28,7 @@ public class spawn : MonoBehaviour
         if (score >= spawnwave && !reset && AI.score==0)
         {
             StartCoroutine(Reset());
-            
+            YGadd.TryShowFullscreenAdWithChance(100);
         }
 
     }

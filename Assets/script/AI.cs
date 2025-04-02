@@ -324,6 +324,7 @@ public class AI : MonoBehaviour
 
     IEnumerator Exit()
     {
+        YGadd.TryShowFullscreenAdWithChance(50);
         yield return new WaitForSeconds(0.5f);
         LeaveChair();
     }
