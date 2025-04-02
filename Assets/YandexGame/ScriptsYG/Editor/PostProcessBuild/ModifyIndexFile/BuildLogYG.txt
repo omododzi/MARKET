@@ -1,2 +1,2 @@
 Build path: D:/buldmarket
-Build number: 4
+Build number: 6
