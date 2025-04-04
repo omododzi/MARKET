@@ -1,14 +1,14 @@
 using UnityEngine;
 using TMPro;
+using YG;
 
 public class Score : MonoBehaviour
 {
-    public static int summ =100;
+    public static int summ;
     public TMP_Text tmpText;
-
     void Start()
     {
-        summ = 100;
+        summ = YandexGame.savesData.money;
     }
 
     void FixedUpdate()

@@ -37,7 +37,7 @@ public class spawn : MonoBehaviour
     {
         reset = true;
         yield return new WaitForSeconds(5f);
-        spawnwave = Random.Range(0, 15);
+        spawnwave = Random.Range(0, 10);
         reset = false;
     }
 

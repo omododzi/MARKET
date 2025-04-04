@@ -121,6 +121,7 @@ public class AI : MonoBehaviour
         if (other.CompareTag("Out"))
         {
             Destroy(gameObject);
+            score--;
             
         }
 
@@ -315,7 +316,6 @@ public class AI : MonoBehaviour
             Score.summ += 20;
             freeCheir.Instance.FreeChair(currentChairIndex);
             currentChairIndex = -1;
-            score--;
             isSitting = false;
             gameObject.tag = "Untagged";
             leave = true;
@@ -324,7 +324,6 @@ public class AI : MonoBehaviour
 
     IEnumerator Exit()
     {
-        YGadd.TryShowFullscreenAdWithChance(50);
         yield return new WaitForSeconds(0.5f);
         LeaveChair();
     }
