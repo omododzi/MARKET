@@ -2561,6 +2561,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.9788976, y: 2.0332468, z: 2.2850342}
   m_Center: {x: 0, y: 1.0166234, z: 0}
+--- !u!1 &274050717 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8343900958133596696, guid: 9354dad055482804b88b7ebd32a2ccd1, type: 3}
+  m_PrefabInstance: {fileID: 5602571304223749266}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &274050719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274050717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e334321b86303247a1cea5d01ab21c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 100
+  name: lox
+  ismoving: 1
+  health: 55.5
 --- !u!4 &275161955 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7483651848682232228, guid: 80d0e52e1c2059941b3a4f5781ad4389, type: 3}
@@ -19942,6 +19963,22 @@ MonoBehaviour:
   pizzaPizza: {fileID: 2159144530657740637, guid: 20e1086482d38ae439a6cff56812504d, type: 3}
   rollRoll: {fileID: 8350145419678657933, guid: 311a99ea59c797e49a57baa7d94bff19, type: 3}
   pastaPasta: {fileID: 8810995953494382615, guid: ff424d6e30db1814f8fd7cfb0fe62549, type: 3}
+--- !u!114 &1901004908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1901004898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e334321b86303247a1cea5d01ab21c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 100
+  name: lox
+  ismoving: 1
+  health: 55.5
 --- !u!1 &1902113787 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3810148002973527318, guid: 2507e3391f9d5f443b26d889334d12ec, type: 3}
@@ -22661,6 +22698,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 956534565983879486, guid: 9354dad055482804b88b7ebd32a2ccd1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1901004907}
+    - targetCorrespondingSourceObject: {fileID: 956534565983879486, guid: 9354dad055482804b88b7ebd32a2ccd1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1901004908}
+    - targetCorrespondingSourceObject: {fileID: 8343900958133596696, guid: 9354dad055482804b88b7ebd32a2ccd1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 274050719}
   m_SourcePrefab: {fileID: 100100000, guid: 9354dad055482804b88b7ebd32a2ccd1, type: 3}
 --- !u!1001 &6769624110186560156
 PrefabInstance:
