@@ -46,7 +46,6 @@ public class AI : MonoBehaviour
     public static int score;
     void Start()
     {
-
         score++;
         animator = GetComponent<Animator>();
         target = GameObject.FindGameObjectWithTag("GameController").transform;

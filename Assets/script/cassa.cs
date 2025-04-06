@@ -13,7 +13,17 @@ public class cassa : MonoBehaviour
       {
          canObserve = true;
       }
-   }private void OnTriggerExit(Collider other)
+   }
+
+   private void OnTriggerStay(Collider other)
+   {
+      if (other.CompareTag("Cassa") )
+      {
+         canObserve = true;
+      }
+   }
+
+   private void OnTriggerExit(Collider other)
    {
       if (other.CompareTag("Cassa") )
       {
@@ -32,7 +42,7 @@ public class cassa : MonoBehaviour
 
    IEnumerator Cooldown()
    {
-      yield return new WaitForSeconds(0.5f);
+      yield return new WaitForSeconds(1f);
       isObserving = false;
    }
 }

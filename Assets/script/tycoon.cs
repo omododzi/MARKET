@@ -66,23 +66,23 @@ public class tycoon : MonoBehaviour
 
     void Update()
     {
-        if (canburger && Input.GetKeyDown(KeyCode.E) && canspawn)
+        if (canburger && Input.GetKeyDown(KeyCode.E) && canspawn && Score.summ >= 10)
         {
             Instantiate(burgerBurger, burger.position, Quaternion.identity);
             StartCoroutine(Cooldown());
-        }else if (canhotdog && Input.GetKeyDown(KeyCode.E)&& canspawn)
+        }else if (canhotdog && Input.GetKeyDown(KeyCode.E)&& canspawn && Score.summ >= 10)
         {
             Instantiate(hotdogHotdog, hotdog.position, Quaternion.identity);
             StartCoroutine(Cooldown());
-        }else if (canpizza && Input.GetKeyDown(KeyCode.E)&& canspawn)
+        }else if (canpizza && Input.GetKeyDown(KeyCode.E)&& canspawn && Score.summ >= 10)
         {
             Instantiate(pizzaPizza, pizza.position, Quaternion.identity);
             StartCoroutine(Cooldown());
-        }else if (canroll && Input.GetKeyDown(KeyCode.E)&& canspawn)
+        }else if (canroll && Input.GetKeyDown(KeyCode.E)&& canspawn && Score.summ >= 10)
         {
             Instantiate(rollRoll, roll.position, Quaternion.identity);
             StartCoroutine(Cooldown());
-        }else if (canpasta && Input.GetKeyDown(KeyCode.E)&& canspawn)
+        }else if (canpasta && Input.GetKeyDown(KeyCode.E)&& canspawn && Score.summ >= 10)
         {
             Instantiate(pastaPasta, pasta.position, Quaternion.identity);
             StartCoroutine(Cooldown());
