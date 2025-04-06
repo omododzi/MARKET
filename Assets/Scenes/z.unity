@@ -4113,7 +4113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7772095340250511049, guid: c0c15d23149e045448be5328e7da2a4b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 7772095340250511049, guid: c0c15d23149e045448be5328e7da2a4b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4828,8 +4828,8 @@ Transform:
   m_GameObject: {fileID: 455929713}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -95.5, y: -8.4529, z: 29.9}
-  m_LocalScale: {x: 9.415087, y: 12.762734, z: 3}
+  m_LocalPosition: {x: -98, y: -8.4529, z: 29.9}
+  m_LocalScale: {x: 3.9764352, y: 12.762734, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 563792332}
@@ -6327,8 +6327,8 @@ Transform:
   m_GameObject: {fileID: 696325575}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.11, y: -8.4529, z: -53.5}
-  m_LocalScale: {x: 9.415087, y: 12.762734, z: 3}
+  m_LocalPosition: {x: 3.1, y: -8.4529, z: -53.5}
+  m_LocalScale: {x: 4.3775444, y: 12.762734, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 563792332}
@@ -6596,7 +6596,7 @@ PrefabInstance:
     - target: {fileID: 2581927320913280747, guid: aafea5044d9b7f149980ee945acec273, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 0cc83e34f35da3f48a1ba35259efa29a, type: 2}
+      objectReference: {fileID: 2100000, guid: 01f6d6d19c8bbce498d2079bbf915858, type: 2}
     - target: {fileID: 3633031667635523169, guid: aafea5044d9b7f149980ee945acec273, type: 3}
       propertyPath: m_Name
       value: plita chair
@@ -13577,8 +13577,8 @@ Transform:
   m_GameObject: {fileID: 1373084713}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 109.1, y: -8.46106, z: -46.76}
-  m_LocalScale: {x: 10.429086, y: 12.746209, z: 3}
+  m_LocalPosition: {x: 109.1, y: -8.46106, z: -49}
+  m_LocalScale: {x: 8.046534, y: 12.746209, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 563792332}
@@ -14656,7 +14656,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1a201393dedf1154eac012260de6d7a4, type: 2}
+  - {fileID: 2100000, guid: 05c3016866998084ba2f5eed9ae6592f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -18787,7 +18787,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 901d491d68de4614f94082da47053d79, type: 2}
+  - {fileID: 2100000, guid: fd0ebe1edcb98b64b857a77ca08ded90, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
