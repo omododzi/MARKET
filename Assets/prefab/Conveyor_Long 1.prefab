@@ -259,7 +259,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7235504106917489385}
   m_Layer: 0
-  m_Name: Conveyor_Long
+  m_Name: Conveyor_Long 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
